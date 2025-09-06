@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up - Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container auth-container">
+    <h1>Create Account</h1>
+    <form id="signup-form">
+      <input id="name" placeholder="Name" required />
+      <input id="email" type="email" placeholder="Email" required />
+      <input id="password" type="password" placeholder="Password (min 6 chars)" minlength="6" required />
+      <button type="submit">Sign Up</button>
+      <p><a href="login.html">Already have an account? Log in</a></p>
+    </form>
+    <div id="signup-msg" class="msg"></div>
+  </div>
+  <script>
+    const API = 'http://localhost:5000/api';
+    const form = document.getElementById('signup-form');
+    const msg = document.getElementById('signup-msg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      try {
+        const res = await fetch(API + '/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Signup failed');
+        localStorage.setItem('token', data.token);
+        window.location.href = 'index.html';
+      } catch (err) {
+        msg.textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>

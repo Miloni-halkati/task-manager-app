@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    <div id="auth">
+      <a href="signup.html">Sign Up</a> | <a href="login.html">Log In</a>
+    </div>
+
+    <div id="app" class="hidden">
+      <div class="controls">
+        <input id="new-title" placeholder="Task title" />
+        <input id="new-desc" placeholder="Description (optional)" />
+        <button id="add-task">Add Task</button>
+        <button id="logout">Logout</button>
+      </div>
+
+      <div class="filters">
+        <button data-filter="all" class="filter active">All</button>
+        <button data-filter="active" class="filter">Active</button>
+        <button data-filter="completed" class="filter">Completed</button>
+      </div>
+
+      <ul id="tasks"></ul>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
